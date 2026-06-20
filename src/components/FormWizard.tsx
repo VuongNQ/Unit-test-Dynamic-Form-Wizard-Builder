@@ -12,7 +12,7 @@ import type {
 import { CheckboxInput } from './form-controls/CheckboxInput'
 import { SelectInput } from './form-controls/SelectInput'
 import { TextInput } from './form-controls/TextInput'
-import styles from './FormWizard.module.css'
+import styles from './FormWizard.module.scss'
 
 type FormWizardProps = {
   config: WizardConfig

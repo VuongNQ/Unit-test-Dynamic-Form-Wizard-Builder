@@ -1,6 +1,6 @@
 import type { FieldPath, UseFormRegister } from 'react-hook-form'
 
-import styles from './FormControl.module.css'
+import styles from './FormControl.module.scss'
 import type { WizardFormValues } from '../../schemas/formSchema'
 
 type SelectInputProps = {
