@@ -1,0 +1,35 @@
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.input,
+.select {
+  height: 2.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: 0.85rem;
+}

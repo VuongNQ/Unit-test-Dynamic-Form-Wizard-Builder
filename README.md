@@ -1,2 +1,11 @@
 # Unit-test-Dynamic-Form-Wizard-Builder
-A project approve skill unit test on Front-
+
+Production-ready React + TypeScript boilerplate for a dynamic multi-step form wizard with strict type safety, schema validation, and advanced unit testing.
+
+## Scripts
+
+- `npm run dev`
+- `npm run build`
+- `npm run lint`
+- `npm run test`
+- `npm run test:run`
