@@ -1,18 +1,20 @@
 import { z } from 'zod'
 
-const requiredDate = z.string().min(1, 'Date is required')
+import i18n from '../i18n/i18n'
+
+const requiredDate = z.string().min(1, i18n.t('validation.dateRequired'))
 
 export const wizardFormSchema = z
   .object({
     accountType: z.enum(['Personal', 'Enterprise'], {
-      message: 'Account type is required',
+      message: i18n.t('validation.accountTypeRequired'),
     }),
-    companyName: z.string().min(1, 'Company name is required'),
+    companyName: z.string().min(1, i18n.t('validation.companyNameRequired')),
     taxId: z.string().optional(),
     startDate: requiredDate,
     endDate: requiredDate,
     acceptTerms: z.boolean().refine((value) => value, {
-      message: 'You must accept the terms',
+      message: i18n.t('validation.acceptTermsRequired'),
     }),
   })
   .refine(
@@ -20,7 +22,7 @@ export const wizardFormSchema = z
       values.accountType !== 'Enterprise' || Boolean(values.taxId?.trim()),
     {
       path: ['taxId'],
-      message: 'Tax ID is required for enterprise accounts',
+      message: i18n.t('validation.taxIdRequired'),
     },
   )
   .refine(
@@ -28,7 +30,7 @@ export const wizardFormSchema = z
       new Date(values.endDate).getTime() > new Date(values.startDate).getTime(),
     {
       path: ['endDate'],
-      message: 'End Date must be after Start Date',
+      message: i18n.t('validation.endDateAfterStartDate'),
     },
   )
 

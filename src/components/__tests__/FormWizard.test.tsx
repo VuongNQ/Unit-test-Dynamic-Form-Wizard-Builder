@@ -1,76 +1,22 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { I18nextProvider } from 'react-i18next'
 import { describe, expect, it } from 'vitest'
 
 import { FormWizard } from '../FormWizard'
+import i18n, { getWizardConfig } from '../../i18n/i18n'
 import { wizardConfigSchema } from '../../schemas/wizardConfig'
 
-const config = wizardConfigSchema.parse({
-  steps: [
-    {
-      id: 'company',
-      title: 'Company Setup',
-      fields: [
-        {
-          type: 'select',
-          name: 'accountType',
-          label: 'Account Type',
-          placeholder: 'Select account type',
-          options: [
-            { label: 'Personal', value: 'Personal' },
-            { label: 'Enterprise', value: 'Enterprise' },
-          ],
-        },
-        {
-          type: 'text',
-          name: 'companyName',
-          label: 'Company Name',
-        },
-      ],
-    },
-    {
-      id: 'details',
-      title: 'Business Details',
-      fields: [
-        {
-          type: 'text',
-          name: 'taxId',
-          label: 'Tax ID',
-          condition: {
-            field: 'accountType',
-            equals: 'Enterprise',
-          },
-        },
-        {
-          type: 'date',
-          name: 'startDate',
-          label: 'Start Date',
-        },
-        {
-          type: 'date',
-          name: 'endDate',
-          label: 'End Date',
-        },
-      ],
-    },
-    {
-      id: 'consent',
-      title: 'Review & Consent',
-      fields: [
-        {
-          type: 'checkbox',
-          name: 'acceptTerms',
-          label: 'I accept the terms and conditions',
-        },
-      ],
-    },
-  ],
-})
+const config = wizardConfigSchema.parse(getWizardConfig())
 
 describe('FormWizard', () => {
   it('handles transitions, validation, conditional rendering, and preserved state', async () => {
     const user = userEvent.setup()
-    render(<FormWizard config={config} />)
+    render(
+      <I18nextProvider i18n={i18n}>
+        <FormWizard config={config} />
+      </I18nextProvider>,
+    )
 
     const nextButton = screen.getByRole('button', { name: 'Next' })
     expect(nextButton).toHaveClass('nextButton')
@@ -90,9 +36,7 @@ describe('FormWizard', () => {
     await user.type(screen.getByLabelText('End Date'), '2026-07-08')
     await user.click(nextButton)
 
-    expect(
-      await screen.findByText('End Date must be after Start Date'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('End Date must be after Start Date')).toBeInTheDocument()
 
     await user.clear(screen.getByLabelText('End Date'))
     await user.type(screen.getByLabelText('End Date'), '2026-07-12')

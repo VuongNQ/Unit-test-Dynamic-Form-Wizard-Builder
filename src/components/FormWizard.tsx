@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
+import type { TFunction } from 'i18next'
 
 import { useFormWizard } from '../hooks/useFormWizard'
 import { wizardFormSchema, type WizardFormValues } from '../schemas/formSchema'
@@ -40,6 +42,7 @@ function getErrorMessage(error: unknown): string | undefined {
 function renderField(
   field: WizardFieldConfig,
   values: WizardFormValues,
+  t: TFunction,
   register: ReturnType<typeof useForm<WizardFormValues>>['register'],
   errors: ReturnType<typeof useForm<WizardFormValues>>['formState']['errors'],
 ) {
@@ -56,9 +59,9 @@ function renderField(
         key={field.name}
         id={field.name}
         name={field.name as keyof WizardFormValues}
-        label={field.label}
+        label={t(field.label)}
         type={field.type}
-        placeholder={field.placeholder}
+        placeholder={field.placeholder ? t(field.placeholder) : undefined}
         register={register}
         error={errorMessage}
       />
@@ -71,9 +74,14 @@ function renderField(
         key={field.name}
         id={field.name}
         name={field.name as keyof WizardFormValues}
-        label={field.label}
-        placeholder={field.placeholder}
-        options={field.options}
+        label={t(field.label)}
+        placeholder={
+          field.placeholder ? t(field.placeholder) : t('wizard.selectPlaceholder')
+        }
+        options={field.options.map((option) => ({
+          ...option,
+          label: t(option.label),
+        }))}
         register={register}
         error={errorMessage}
       />
@@ -85,7 +93,7 @@ function renderField(
       key={field.name}
       id={field.name}
       name={field.name as keyof WizardFormValues}
-      label={field.label}
+      label={t(field.label)}
       register={register}
       error={errorMessage}
     />
@@ -93,6 +101,7 @@ function renderField(
 }
 
 export function FormWizard({ config }: FormWizardProps) {
+  const { t } = useTranslation()
   const [submittedValues, setSubmittedValues] = useState<
     WizardFormValues | undefined
   >()
@@ -157,14 +166,17 @@ export function FormWizard({ config }: FormWizardProps) {
     <form className={styles.wizard} noValidate>
       <header className={styles.header}>
         <p className={styles.progress}>
-          Step {currentStepIndex + 1} of {totalSteps}
+          {t('wizard.progress', {
+            current: currentStepIndex + 1,
+            total: totalSteps,
+          })}
         </p>
-        <h1 className={styles.title}>{currentStep.title}</h1>
+        <h1 className={styles.title}>{t(currentStep.title)}</h1>
       </header>
 
       <section className={styles.fields}>
         {currentStep.fields.map((field) =>
-          renderField(field, values, register, errors),
+          renderField(field, values, t, register, errors),
         )}
       </section>
 
@@ -175,14 +187,14 @@ export function FormWizard({ config }: FormWizardProps) {
           onClick={goBack}
           disabled={isFirstStep}
         >
-          Back
+          {t('wizard.buttons.back')}
         </button>
         <button
           type="button"
           className={`${styles.button} ${styles.nextButton}`}
           onClick={onNextClick}
         >
-          {isLastStep ? 'Submit' : 'Next'}
+          {isLastStep ? t('wizard.buttons.submit') : t('wizard.buttons.next')}
         </button>
       </div>
 

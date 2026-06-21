@@ -1,0 +1,108 @@
+{
+  "translation": {
+    "app": {
+      "loadingConfig": "Loading form configuration...",
+      "loadError": "Unable to load form configuration."
+    },
+    "wizard": {
+      "progress": "Step {{current}} of {{total}}",
+      "buttons": {
+        "back": "Back",
+        "next": "Next",
+        "submit": "Submit"
+      },
+      "selectPlaceholder": "Select an option"
+    },
+    "wizard.stepTitles.company": "Company Setup",
+    "wizard.stepTitles.details": "Business Details",
+    "wizard.stepTitles.consent": "Review & Consent",
+    "wizard.fieldLabels.accountType": "Account Type",
+    "wizard.fieldLabels.companyName": "Company Name",
+    "wizard.fieldLabels.taxId": "Tax ID",
+    "wizard.fieldLabels.startDate": "Start Date",
+    "wizard.fieldLabels.endDate": "End Date",
+    "wizard.fieldLabels.acceptTerms": "I accept the terms and conditions",
+    "wizard.fieldPlaceholders.accountType": "Select account type",
+    "wizard.fieldPlaceholders.companyName": "Acme Inc.",
+    "wizard.fieldPlaceholders.taxId": "TAX-001",
+    "wizard.optionLabels.personal": "Personal",
+    "wizard.optionLabels.enterprise": "Enterprise",
+    "validation": {
+      "dateRequired": "Date is required",
+      "accountTypeRequired": "Account type is required",
+      "companyNameRequired": "Company name is required",
+      "acceptTermsRequired": "You must accept the terms",
+      "taxIdRequired": "Tax ID is required for enterprise accounts",
+      "endDateAfterStartDate": "End Date must be after Start Date"
+    }
+  },
+  "config": {
+    "steps": [
+      {
+        "id": "company",
+        "title": "wizard.stepTitles.company",
+        "fields": [
+          {
+            "type": "select",
+            "name": "accountType",
+            "label": "wizard.fieldLabels.accountType",
+            "placeholder": "wizard.fieldPlaceholders.accountType",
+            "options": [
+              {
+                "label": "wizard.optionLabels.personal",
+                "value": "Personal"
+              },
+              {
+                "label": "wizard.optionLabels.enterprise",
+                "value": "Enterprise"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "companyName",
+            "label": "wizard.fieldLabels.companyName",
+            "placeholder": "wizard.fieldPlaceholders.companyName"
+          }
+        ]
+      },
+      {
+        "id": "details",
+        "title": "wizard.stepTitles.details",
+        "fields": [
+          {
+            "type": "text",
+            "name": "taxId",
+            "label": "wizard.fieldLabels.taxId",
+            "placeholder": "wizard.fieldPlaceholders.taxId",
+            "condition": {
+              "field": "accountType",
+              "equals": "Enterprise"
+            }
+          },
+          {
+            "type": "date",
+            "name": "startDate",
+            "label": "wizard.fieldLabels.startDate"
+          },
+          {
+            "type": "date",
+            "name": "endDate",
+            "label": "wizard.fieldLabels.endDate"
+          }
+        ]
+      },
+      {
+        "id": "consent",
+        "title": "wizard.stepTitles.consent",
+        "fields": [
+          {
+            "type": "checkbox",
+            "name": "acceptTerms",
+            "label": "wizard.fieldLabels.acceptTerms"
+          }
+        ]
+      }
+    ]
+  }
+}

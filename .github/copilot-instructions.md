@@ -34,6 +34,8 @@ The wizard has three layers:
 - Keep form-value schemas in `schemas/formSchema.ts` and config schemas in `schemas/wizardConfig.ts`.
 - Cross-field validation lives as `.refine()` on the top-level `wizardFormSchema`.
 - Config must always be validated at runtime with `wizardConfigSchema.parse(...)` — both in `App.tsx` and in tests.
+- Locale-driven copy lives in `src/i18n/locales/en.json`; use `i18next`/`react-i18next` via `src/i18n/i18n.ts`.
+- Prefer locale data over hardcoded UI text in components, schemas, and tests.
 
 ### CSS / Styling
 
@@ -64,7 +66,7 @@ npm run test:run  # vitest run (CI / single-pass)
 - `globals: true` is set — but still import `describe`, `it`, `expect` explicitly from `vitest` in test files.
 - Parse config with `wizardConfigSchema.parse({...})` at module scope (not inside `beforeEach`).
 - Use `userEvent.setup()` for all user interactions — never `fireEvent`.
-- Query by accessible role/label: `getByRole('button', { name: 'Next' })`, `getByLabelText('Company Name')`.
+- Query by accessible role/label using locale text where possible.
 - Use `screen.findByText(...)` (async) after user actions that trigger async state changes; use `screen.getByText(...)` (sync) for immediately visible elements.
 - Write large integration-style tests that exercise a full user flow end-to-end — one `it` block per scenario.
 - No mocking of react-hook-form or Zod — use the real implementations.

@@ -7,7 +7,7 @@ type SelectInputProps = {
   id: string
   label: string
   name: FieldPath<WizardFormValues>
-  placeholder?: string
+  placeholder: string
   options: Array<{ label: string; value: string }>
   register: UseFormRegister<WizardFormValues>
   error?: string
@@ -29,7 +29,7 @@ export function SelectInput({
       </label>
       <select id={id} className={styles.select} defaultValue="" {...register(name)}>
         <option value="" disabled>
-          {placeholder ?? 'Select an option'}
+          {placeholder}
         </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
