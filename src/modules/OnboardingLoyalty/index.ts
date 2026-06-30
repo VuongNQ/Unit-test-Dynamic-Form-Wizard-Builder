@@ -1,0 +1,1 @@
+export { OnboardingLoyaltyModulePage } from './OnboardingLoyaltyModulePage'

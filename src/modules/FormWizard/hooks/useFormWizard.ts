@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
 
-import type { WizardStepConfig } from '../schemas/wizardConfig'
+import type { WizardStepConfig } from '@/modules/FormWizard/schemas/wizardConfig'
 
 export function useFormWizard(steps: WizardStepConfig[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
 
-  const safeIndex = steps.length === 0 ? 0 : Math.min(currentStepIndex, steps.length - 1)
+  const safeIndex =
+    steps.length === 0 ? 0 : Math.min(currentStepIndex, steps.length - 1)
 
   const currentStep = steps[safeIndex]
 
@@ -24,6 +25,8 @@ export function useFormWizard(steps: WizardStepConfig[]) {
     ...stepState,
     goBack: () => setCurrentStepIndex((index) => Math.max(index - 1, 0)),
     goNext: () =>
-      setCurrentStepIndex((index) => Math.min(index + 1, Math.max(steps.length - 1, 0))),
+      setCurrentStepIndex((index) =>
+        Math.min(index + 1, Math.max(steps.length - 1, 0)),
+      ),
   }
 }

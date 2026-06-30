@@ -5,10 +5,13 @@ import { I18nextProvider } from 'react-i18next'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 
-import { App } from '../../App'
-import i18n from '../../i18n/i18n'
+import { App } from '@/App'
+import i18n, { getWizardConfig } from '@/i18n/i18n'
+import { wizardConfigSchema } from '@/modules/FormWizard/schemas/wizardConfig'
 
-function renderLoyaltyRoute(initialEntry: string) {
+const parsedConfig = wizardConfigSchema.parse(getWizardConfig())
+
+function renderRoute(initialEntry: string) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -28,10 +31,12 @@ function renderLoyaltyRoute(initialEntry: string) {
   )
 }
 
-describe('Loyalty workflow module', () => {
+describe('OnboardingLoyalty module', () => {
   it('renders loyalty route and keeps wizard validation active', async () => {
+    expect(parsedConfig.steps.length).toBeGreaterThan(0)
+
     const user = userEvent.setup()
-    renderLoyaltyRoute('/loyalty')
+    renderRoute('/loyalty')
 
     expect(await screen.findByRole('heading', { name: 'Loyalty' })).toBeInTheDocument()
 
@@ -40,7 +45,7 @@ describe('Loyalty workflow module', () => {
   })
 
   it('redirects unknown routes to onboarding module', async () => {
-    renderLoyaltyRoute('/unknown')
+    renderRoute('/unknown')
 
     expect(await screen.findByRole('heading', { name: 'Onboarding' })).toBeInTheDocument()
   })

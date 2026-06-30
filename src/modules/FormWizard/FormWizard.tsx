@@ -4,17 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
 import type { TFunction } from 'i18next'
 
-import { useFormWizard } from '../hooks/useFormWizard'
-import { wizardFormSchema, type WizardFormValues } from '../schemas/formSchema'
+import { CheckboxInput } from '@/modules/FormWizard/components/form-controls/CheckboxInput'
+import { SelectInput } from '@/modules/FormWizard/components/form-controls/SelectInput'
+import { TextInput } from '@/modules/FormWizard/components/form-controls/TextInput'
+import { useFormWizard } from '@/modules/FormWizard/hooks/useFormWizard'
+import { wizardFormSchema, type WizardFormValues } from '@/modules/FormWizard/schemas/formSchema'
 import type {
   FieldCondition,
   WizardConfig,
   WizardFieldConfig,
-} from '../schemas/wizardConfig'
-import { CheckboxInput } from './form-controls/CheckboxInput'
-import { SelectInput } from './form-controls/SelectInput'
-import { TextInput } from './form-controls/TextInput'
-import styles from './FormWizard.module.scss'
+} from '@/modules/FormWizard/schemas/wizardConfig'
+import styles from './components/FormWizard.module.scss'
 
 type FormWizardProps = {
   config: WizardConfig
@@ -133,8 +133,15 @@ export function FormWizard({ config }: FormWizardProps) {
     [config.steps, values],
   )
 
-  const { currentStep, currentStepIndex, totalSteps, isFirstStep, isLastStep, goBack, goNext } =
-    useFormWizard(visibleSteps)
+  const {
+    currentStep,
+    currentStepIndex,
+    totalSteps,
+    isFirstStep,
+    isLastStep,
+    goBack,
+    goNext,
+  } = useFormWizard(visibleSteps)
 
   const onSubmit = handleSubmit((data) => {
     setSubmittedValues(data)

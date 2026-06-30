@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import i18n from '../i18n/i18n'
+import i18n from '@/i18n/i18n'
 
 const requiredDate = z.string().min(1, i18n.t('validation.dateRequired'))
 

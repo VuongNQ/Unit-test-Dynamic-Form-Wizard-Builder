@@ -5,8 +5,11 @@ import { I18nextProvider } from 'react-i18next'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 
-import { App } from '../../App'
-import i18n from '../../i18n/i18n'
+import { App } from '@/App'
+import i18n, { getWizardConfig } from '@/i18n/i18n'
+import { wizardConfigSchema } from '@/modules/FormWizard/schemas/wizardConfig'
+
+const parsedConfig = wizardConfigSchema.parse(getWizardConfig())
 
 function renderOnboardingRoute() {
   const queryClient = new QueryClient({
@@ -28,8 +31,10 @@ function renderOnboardingRoute() {
   )
 }
 
-describe('Onboarding workflow module', () => {
+describe('FormWizard module', () => {
   it('handles transitions, validation, conditional rendering, and preserved state', async () => {
+    expect(parsedConfig.steps.length).toBeGreaterThan(0)
+
     const user = userEvent.setup()
     renderOnboardingRoute()
 

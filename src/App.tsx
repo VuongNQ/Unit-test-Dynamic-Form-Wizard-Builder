@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 
-import { WorkflowModulePage } from './modules/WorkflowModulePage'
+import { getWizardConfig } from '@/i18n/i18n'
+import { OnboardingLoyaltyModulePage } from '@/modules/OnboardingLoyalty'
+import { wizardConfigSchema } from '@/modules/FormWizard/schemas/wizardConfig'
 
 export function App() {
   const { t } = useTranslation()
+
+  wizardConfigSchema.parse(getWizardConfig())
 
   return (
     <main>
@@ -18,7 +22,7 @@ export function App() {
         <Route
           path="/onboarding"
           element={
-            <WorkflowModulePage
+            <OnboardingLoyaltyModulePage
               moduleTitleKey="app.modules.onboarding"
               queryKey="onboarding"
             />
@@ -27,7 +31,7 @@ export function App() {
         <Route
           path="/loyalty"
           element={
-            <WorkflowModulePage
+            <OnboardingLoyaltyModulePage
               moduleTitleKey="app.modules.loyalty"
               queryKey="loyalty"
             />

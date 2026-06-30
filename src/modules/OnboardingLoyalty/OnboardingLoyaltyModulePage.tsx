@@ -1,23 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
-import { FormWizard } from '../components/FormWizard'
-import { getWizardConfig } from '../i18n/i18n'
-import { wizardConfigSchema } from '../schemas/wizardConfig'
+import { FormWizard } from '@/modules/FormWizard/FormWizard'
+import { getValidatedWizardConfig } from '@/modules/OnboardingLoyalty/schemas/wizardConfig'
 
-type WorkflowModulePageProps = {
+type OnboardingLoyaltyModulePageProps = {
   moduleTitleKey: string
   queryKey: string
 }
 
 async function fetchWizardConfig() {
-  return wizardConfigSchema.parse(getWizardConfig())
+  return getValidatedWizardConfig()
 }
 
-export function WorkflowModulePage({
+export function OnboardingLoyaltyModulePage({
   moduleTitleKey,
   queryKey,
-}: WorkflowModulePageProps) {
+}: OnboardingLoyaltyModulePageProps) {
   const { t } = useTranslation()
 
   const { data, isLoading, error } = useQuery({

@@ -1,7 +1,7 @@
 import type { FieldPath, UseFormRegister } from 'react-hook-form'
 
 import styles from './FormControl.module.scss'
-import type { WizardFormValues } from '../../schemas/formSchema'
+import type { WizardFormValues } from '@/modules/FormWizard/schemas/formSchema'
 
 type CheckboxInputProps = {
   id: string

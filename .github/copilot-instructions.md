@@ -11,11 +11,16 @@
 
 ## Architecture
 
-The wizard has three layers:
+The project has two modules:
 
-1. **Config layer** (`schemas/wizardConfig.ts`): Zod discriminated-union schema that validates the wizard definition at runtime via `wizardConfigSchema.parse(config)`.
-2. **Orchestrator** (`components/FormWizard.tsx`): Owns all `react-hook-form` state (`useForm`, `useWatch`, `trigger`). Handles field rendering via a helper function `renderField(...)`, not a sub-component. Delegates step navigation to `useFormWizard`.
-3. **Leaf inputs** (`components/form-controls/`): Purely presentational — receive `id`, `name`, `register`, `error` props only. No internal form state.
+1. **FormWizard module** (`src/modules/FormWizard/`): owns form rendering, `react-hook-form` state orchestration, Zod form schema, Zod config schema, and presentational form controls.
+2. **OnboardingLoyalty module** (`src/modules/OnboardingLoyalty/`): owns route-level workflow composition, validated config retrieval, and integration tests for onboarding/loyalty routing behavior.
+
+Within `FormWizard`, the wizard still has three layers:
+
+1. **Config layer** (`src/modules/FormWizard/schemas/wizardConfig.ts`): Zod discriminated-union schema that validates the wizard definition at runtime via `wizardConfigSchema.parse(config)`.
+2. **Orchestrator** (`src/modules/FormWizard/FormWizard.tsx`): Owns all `react-hook-form` state (`useForm`, `useWatch`, `trigger`). Handles field rendering via a helper function `renderField(...)`, not a sub-component. Delegates step navigation to `useFormWizard`.
+3. **Leaf inputs** (`src/modules/FormWizard/components/form-controls/`): Purely presentational — receive `id`, `name`, `register`, `error` props only. No internal form state.
 
 ## Conventions
 
@@ -31,7 +36,9 @@ The wizard has three layers:
 ### Schemas & Types
 
 - **All domain types come from `z.infer<>`** — no hand-written interfaces for data shapes.
-- Keep form-value schemas in `schemas/formSchema.ts` and config schemas in `schemas/wizardConfig.ts`.
+- Keep FormWizard form-value schema in `src/modules/FormWizard/schemas/formSchema.ts`.
+- Keep FormWizard config schema in `src/modules/FormWizard/schemas/wizardConfig.ts`.
+- Keep OnboardingLoyalty config-validation wrapper in `src/modules/OnboardingLoyalty/schemas/wizardConfig.ts`.
 - Cross-field validation lives as `.refine()` on the top-level `wizardFormSchema`.
 - Config must always be validated at runtime with `wizardConfigSchema.parse(...)` — both in `App.tsx` and in tests.
 - Locale-driven copy lives in `src/i18n/locales/en.json`; use `i18next`/`react-i18next` via `src/i18n/i18n.ts`.
@@ -60,7 +67,9 @@ npm run test:run  # vitest run (CI / single-pass)
 
 ## Testing Conventions
 
-- Test files live in `src/components/__tests__/`, not alongside each component file.
+- Test files are module-scoped:
+- `src/modules/FormWizard/__tests__/` for form behavior and validation flow.
+- `src/modules/OnboardingLoyalty/__tests__/` for module routing/integration behavior.
 - Global setup: `src/test/setupTests.ts` — imports `@testing-library/jest-dom/vitest`.
 - `vitest.config.ts` is separate from `vite.config.ts` (not merged).
 - `globals: true` is set — but still import `describe`, `it`, `expect` explicitly from `vitest` in test files.
