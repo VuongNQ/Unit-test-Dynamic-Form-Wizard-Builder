@@ -1,22 +1,39 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { I18nextProvider } from 'react-i18next'
+import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 
-import { FormWizard } from '../FormWizard'
-import i18n, { getWizardConfig } from '../../i18n/i18n'
-import { wizardConfigSchema } from '../../schemas/wizardConfig'
+import { App } from '../../App'
+import i18n from '../../i18n/i18n'
 
-const config = wizardConfigSchema.parse(getWizardConfig())
+function renderOnboardingRoute() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  })
 
-describe('FormWizard', () => {
+  return render(
+    <I18nextProvider i18n={i18n}>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/onboarding']}>
+          <App />
+        </MemoryRouter>
+      </QueryClientProvider>
+    </I18nextProvider>,
+  )
+}
+
+describe('Onboarding workflow module', () => {
   it('handles transitions, validation, conditional rendering, and preserved state', async () => {
     const user = userEvent.setup()
-    render(
-      <I18nextProvider i18n={i18n}>
-        <FormWizard config={config} />
-      </I18nextProvider>,
-    )
+    renderOnboardingRoute()
+
+    expect(await screen.findByRole('heading', { name: 'Onboarding' })).toBeInTheDocument()
 
     const nextButton = screen.getByRole('button', { name: 'Next' })
     expect(nextButton).toHaveClass('nextButton')

@@ -2,7 +2,12 @@
   "translation": {
     "app": {
       "loadingConfig": "Loading form configuration...",
-      "loadError": "Unable to load form configuration."
+      "loadError": "Unable to load form configuration.",
+      "moduleNavigation": "Workflow modules",
+      "modules": {
+        "onboarding": "Onboarding",
+        "loyalty": "Loyalty"
+      }
     },
     "wizard": {
       "progress": "Step {{current}} of {{total}}",
