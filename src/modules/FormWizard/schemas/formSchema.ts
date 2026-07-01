@@ -16,6 +16,17 @@ export const wizardFormSchema = z
     acceptTerms: z.boolean().refine((value) => value, {
       message: i18n.t('validation.acceptTermsRequired'),
     }),
+    primaryObjective: z.string().optional(),
+    industry: z.string().optional(),
+    targetRegion: z.string().optional(),
+    monthlyRevenue: z.string().optional(),
+    loyaltyBudgetPercentage: z.string().optional(),
+    earningRule_completedPurchase: z.boolean().optional(),
+    earningRule_happyBirthday: z.boolean().optional(),
+    earningRule_reviewProduct: z.boolean().optional(),
+    redemption_discount: z.boolean().optional(),
+    redemption_freeShipping: z.boolean().optional(),
+    redemption_freeProduct: z.boolean().optional(),
   })
   .refine(
     (values) =>

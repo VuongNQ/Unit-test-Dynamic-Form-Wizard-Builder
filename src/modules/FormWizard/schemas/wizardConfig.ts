@@ -26,10 +26,17 @@ const checkboxFieldSchema = baseFieldSchema.extend({
   type: z.literal('checkbox'),
 })
 
+const radioFieldSchema = baseFieldSchema.extend({
+  type: z.literal('radio'),
+  placeholder: z.string().optional(),
+  options: z.array(z.object({ label: z.string(), value: z.string() })).min(1),
+})
+
 export const fieldSchema = z.discriminatedUnion('type', [
   textFieldSchema,
   selectFieldSchema,
   checkboxFieldSchema,
+  radioFieldSchema,
 ])
 
 export const wizardStepSchema = z.object({

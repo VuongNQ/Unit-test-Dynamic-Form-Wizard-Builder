@@ -9,6 +9,7 @@ const resources = {
   en: {
     translation: locale.translation,
     config: locale.config,
+    loyaltyConfig: locale.loyaltyConfig,
   },
 } as const
 
@@ -17,7 +18,7 @@ void i18n.use(initReactI18next).init({
   lng: 'en',
   fallbackLng: 'en',
   defaultNS: 'translation',
-  ns: ['translation', 'config'],
+  ns: ['translation', 'config', 'loyaltyConfig'],
   interpolation: {
     escapeValue: false,
   },
@@ -25,6 +26,10 @@ void i18n.use(initReactI18next).init({
 
 export function getWizardConfig() {
   return i18n.getResourceBundle('en', 'config') as LocaleFile['config']
+}
+
+export function getLoyaltyWizardConfig() {
+  return i18n.getResourceBundle('en', 'loyaltyConfig') as LocaleFile['loyaltyConfig']
 }
 
 export default i18n

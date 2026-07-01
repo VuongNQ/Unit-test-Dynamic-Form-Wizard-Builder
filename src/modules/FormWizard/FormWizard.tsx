@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { TFunction } from 'i18next'
 
 import { CheckboxInput } from '@/modules/FormWizard/components/form-controls/CheckboxInput'
+import { RadioInput } from '@/modules/FormWizard/components/form-controls/RadioInput'
 import { SelectInput } from '@/modules/FormWizard/components/form-controls/SelectInput'
 import { TextInput } from '@/modules/FormWizard/components/form-controls/TextInput'
 import { useFormWizard } from '@/modules/FormWizard/hooks/useFormWizard'
@@ -88,6 +89,23 @@ function renderField(
     )
   }
 
+  if (field.type === 'radio') {
+    return (
+      <RadioInput
+        key={field.name}
+        id={field.name}
+        name={field.name as keyof WizardFormValues}
+        label={t(field.label)}
+        options={field.options.map((option) => ({
+          ...option,
+          label: t(option.label),
+        }))}
+        register={register}
+        error={errorMessage}
+      />
+    )
+  }
+
   return (
     <CheckboxInput
       key={field.name}
@@ -123,6 +141,17 @@ export function FormWizard({ config }: FormWizardProps) {
       startDate: '',
       endDate: '',
       acceptTerms: false,
+      primaryObjective: '',
+      industry: '',
+      targetRegion: '',
+      monthlyRevenue: '',
+      loyaltyBudgetPercentage: '',
+      earningRule_completedPurchase: false,
+      earningRule_happyBirthday: true,
+      earningRule_reviewProduct: true,
+      redemption_discount: true,
+      redemption_freeShipping: true,
+      redemption_freeProduct: true,
     },
   })
 

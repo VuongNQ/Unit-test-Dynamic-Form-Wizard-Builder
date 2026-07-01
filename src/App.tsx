@@ -4,6 +4,7 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { getWizardConfig } from '@/i18n/i18n'
 import { OnboardingLoyaltyModulePage } from '@/modules/OnboardingLoyalty'
 import { wizardConfigSchema } from '@/modules/FormWizard/schemas/wizardConfig'
+import { getValidatedLoyaltyWizardConfig } from '@/modules/OnboardingLoyalty/schemas/wizardConfig'
 
 export function App() {
   const { t } = useTranslation()
@@ -34,6 +35,7 @@ export function App() {
             <OnboardingLoyaltyModulePage
               moduleTitleKey="app.modules.loyalty"
               queryKey="loyalty"
+              configFetcher={getValidatedLoyaltyWizardConfig}
             />
           }
         />

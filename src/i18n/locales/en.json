@@ -39,6 +39,79 @@
       "acceptTermsRequired": "You must accept the terms",
       "taxIdRequired": "Tax ID is required for enterprise accounts",
       "endDateAfterStartDate": "End Date must be after Start Date"
+    },
+    "loyalty": {
+      "stepTitles": {
+        "objective": "What is your primary objective of the Loyalty Program?",
+        "industry": "Let's learn about your store",
+        "region": "Let's learn about your store",
+        "revenue": "Share data to enhance our recommendations.",
+        "budget": "Share data to enhance our recommendations.",
+        "rules": "Recommended Earning Rules & Redemption Options",
+        "plan": "Suggested plan for you"
+      },
+      "fieldLabels": {
+        "primaryObjective": "Primary objective",
+        "industry": "What industry does your store belong to?",
+        "targetRegion": "Where are your target customers primarily located?",
+        "monthlyRevenue": "What is your store's current monthly revenue?",
+        "loyaltyBudgetPercentage": "What percentage of revenue will you allocate to your Loyalty Program?",
+        "earningRule_completedPurchase": "Completed purchase",
+        "earningRule_happyBirthday": "Happy birthday",
+        "earningRule_reviewProduct": "Review product",
+        "redemption_discount": "10% off voucher",
+        "redemption_freeShipping": "Free shipping",
+        "redemption_freeProduct": "Free product"
+      },
+      "optionLabels": {
+        "clv": "Increase Customer Lifetime Value (CLV)",
+        "awareness": "Increase brand awareness",
+        "adCost": "Reduce ad cost",
+        "customers": "Acquire more customers",
+        "other": "I don't know yet / Other",
+        "apparel": "Apparel & Fashion",
+        "automotive": "Automotive & Electronics",
+        "beauty": "Beauty & Personal Care",
+        "food": "Food & Beverage",
+        "health": "Health, Fitness & Wellness",
+        "home": "Home, Furniture & Living",
+        "jewelry": "Jewelry, Gifts & Accessories",
+        "kids": "Kids, Baby & Toys",
+        "services": "Services & Experiences",
+        "supermarket": "Supermarket & Convenience Stores",
+        "other": "Other not listed",
+        "emea": "Europe, Middle East, Africa and North America (EMEA)",
+        "japanTaiwan": "Japan and Taiwan",
+        "anz": "Australia and New Zealand",
+        "chinaHk": "China, Hong Kong and Macau",
+        "singapore": "Singapore",
+        "seasia": "Southeast Asian Countries",
+        "other": "Other Regions / Global",
+        "notSure": "I'm not sure",
+        "under10k": "Under $10,000",
+        "10kTo100k": "$10,000 - $100,000",
+        "over100k": "Over $100,000",
+        "preferNotSay": "Prefer not to say",
+        "1percent": "1%",
+        "2percent": "2%",
+        "3percent": "3%",
+        "4to5percent": "4-5%",
+        "7percent": "7%",
+        "custom": "Enter my own budget"
+      },
+      "descriptions": {
+        "clv": "Customers buy more often",
+        "awareness": "Customers spend more per purchase",
+        "adCost": "Reduce churn rate",
+        "customers": "",
+        "earningCompletedDesc": "when customers place an order",
+        "earningBirthdayDesc": "when customers celebrate their special day",
+        "earningReviewDesc": "when customers submit feedback on their purchase",
+        "redemptionDiscount": "Percentage discount on the total order",
+        "redemptionShipping": "Free shipping on the order",
+        "redemptionProduct": "Free product with the order",
+        "budgetTip": "{{objective}} typically allocates 1-2% for Loyalty Programs."
+      }
     }
   },
   "config": {
@@ -107,6 +180,252 @@
             "label": "wizard.fieldLabels.acceptTerms"
           }
         ]
+      }
+    ]
+  },
+  "loyaltyConfig": {
+    "steps": [
+      {
+        "id": "loyalty-objective",
+        "title": "loyalty.stepTitles.objective",
+        "fields": [
+          {
+            "type": "radio",
+            "name": "primaryObjective",
+            "label": "loyalty.fieldLabels.primaryObjective",
+            "options": [
+              {
+                "label": "loyalty.optionLabels.clv",
+                "value": "CLV"
+              },
+              {
+                "label": "loyalty.optionLabels.awareness",
+                "value": "Awareness"
+              },
+              {
+                "label": "loyalty.optionLabels.adCost",
+                "value": "AdCost"
+              },
+              {
+                "label": "loyalty.optionLabels.customers",
+                "value": "Customers"
+              },
+              {
+                "label": "loyalty.optionLabels.other",
+                "value": "Other"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "loyalty-industry",
+        "title": "loyalty.stepTitles.industry",
+        "fields": [
+          {
+            "type": "radio",
+            "name": "industry",
+            "label": "loyalty.fieldLabels.industry",
+            "options": [
+              {
+                "label": "loyalty.optionLabels.apparel",
+                "value": "Apparel"
+              },
+              {
+                "label": "loyalty.optionLabels.automotive",
+                "value": "Automotive"
+              },
+              {
+                "label": "loyalty.optionLabels.beauty",
+                "value": "Beauty"
+              },
+              {
+                "label": "loyalty.optionLabels.food",
+                "value": "Food"
+              },
+              {
+                "label": "loyalty.optionLabels.health",
+                "value": "Health"
+              },
+              {
+                "label": "loyalty.optionLabels.home",
+                "value": "Home"
+              },
+              {
+                "label": "loyalty.optionLabels.jewelry",
+                "value": "Jewelry"
+              },
+              {
+                "label": "loyalty.optionLabels.kids",
+                "value": "Kids"
+              },
+              {
+                "label": "loyalty.optionLabels.services",
+                "value": "Services"
+              },
+              {
+                "label": "loyalty.optionLabels.supermarket",
+                "value": "Supermarket"
+              },
+              {
+                "label": "loyalty.optionLabels.other",
+                "value": "Other"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "loyalty-region",
+        "title": "loyalty.stepTitles.region",
+        "fields": [
+          {
+            "type": "radio",
+            "name": "targetRegion",
+            "label": "loyalty.fieldLabels.targetRegion",
+            "options": [
+              {
+                "label": "loyalty.optionLabels.emea",
+                "value": "EMEA"
+              },
+              {
+                "label": "loyalty.optionLabels.japanTaiwan",
+                "value": "JapanTaiwan"
+              },
+              {
+                "label": "loyalty.optionLabels.anz",
+                "value": "ANZ"
+              },
+              {
+                "label": "loyalty.optionLabels.chinaHk",
+                "value": "ChinaHK"
+              },
+              {
+                "label": "loyalty.optionLabels.singapore",
+                "value": "Singapore"
+              },
+              {
+                "label": "loyalty.optionLabels.seasia",
+                "value": "SEAsia"
+              },
+              {
+                "label": "loyalty.optionLabels.other",
+                "value": "Other"
+              },
+              {
+                "label": "loyalty.optionLabels.notSure",
+                "value": "NotSure"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "loyalty-revenue",
+        "title": "loyalty.stepTitles.revenue",
+        "fields": [
+          {
+            "type": "radio",
+            "name": "monthlyRevenue",
+            "label": "loyalty.fieldLabels.monthlyRevenue",
+            "options": [
+              {
+                "label": "loyalty.optionLabels.under10k",
+                "value": "Under10k"
+              },
+              {
+                "label": "loyalty.optionLabels.10kTo100k",
+                "value": "10kTo100k"
+              },
+              {
+                "label": "loyalty.optionLabels.over100k",
+                "value": "Over100k"
+              },
+              {
+                "label": "loyalty.optionLabels.preferNotSay",
+                "value": "PreferNotSay"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "loyalty-budget",
+        "title": "loyalty.stepTitles.budget",
+        "fields": [
+          {
+            "type": "radio",
+            "name": "loyaltyBudgetPercentage",
+            "label": "loyalty.fieldLabels.loyaltyBudgetPercentage",
+            "options": [
+              {
+                "label": "loyalty.optionLabels.1percent",
+                "value": "1"
+              },
+              {
+                "label": "loyalty.optionLabels.2percent",
+                "value": "2"
+              },
+              {
+                "label": "loyalty.optionLabels.3percent",
+                "value": "3"
+              },
+              {
+                "label": "loyalty.optionLabels.4to5percent",
+                "value": "4-5"
+              },
+              {
+                "label": "loyalty.optionLabels.7percent",
+                "value": "7"
+              },
+              {
+                "label": "loyalty.optionLabels.custom",
+                "value": "Custom"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "loyalty-rules",
+        "title": "loyalty.stepTitles.rules",
+        "fields": [
+          {
+            "type": "checkbox",
+            "name": "earningRule_completedPurchase",
+            "label": "loyalty.fieldLabels.earningRule_completedPurchase"
+          },
+          {
+            "type": "checkbox",
+            "name": "earningRule_happyBirthday",
+            "label": "loyalty.fieldLabels.earningRule_happyBirthday"
+          },
+          {
+            "type": "checkbox",
+            "name": "earningRule_reviewProduct",
+            "label": "loyalty.fieldLabels.earningRule_reviewProduct"
+          },
+          {
+            "type": "checkbox",
+            "name": "redemption_discount",
+            "label": "loyalty.fieldLabels.redemption_discount"
+          },
+          {
+            "type": "checkbox",
+            "name": "redemption_freeShipping",
+            "label": "loyalty.fieldLabels.redemption_freeShipping"
+          },
+          {
+            "type": "checkbox",
+            "name": "redemption_freeProduct",
+            "label": "loyalty.fieldLabels.redemption_freeProduct"
+          }
+        ]
+      },
+      {
+        "id": "loyalty-plan",
+        "title": "loyalty.stepTitles.plan",
+        "fields": []
       }
     ]
   }
